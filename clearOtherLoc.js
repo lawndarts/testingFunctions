@@ -28,6 +28,7 @@ function secondThing(num, wordList) {
     console.log(wordList)
     const percentage = num / 100;
     let count = 0;
+    let removedCount = 0;
     let intervalID;
     intervalID = setInterval(function () {
         const mainElement = "col-md-4 col-sm-6 px-2 mb-4 border-bottom";
@@ -39,7 +40,6 @@ function secondThing(num, wordList) {
             let strippedWords = cleanText.split(" ")
             for (word of wordList) {
                 if (strippedWords.includes(word)){
-                    console.log('SHITTTTTTTT');
                     console.log(word);
                     // console.log(strippedWords);
                     remove = true;
@@ -67,11 +67,13 @@ function secondThing(num, wordList) {
             if (value > percentage || remove) {
                 div = elements[i];
                 div.parentNode.removeChild(div);
+                removedCount++;
             }
         }
         count += 1;
-        console.log(count)
-        if (count > 70) {
+        console.log(count);
+        if (count > 5) {
+            console.log(removedCount + " items removed!");
             clearInterval(intervalID)
         };
     }, 1000);
