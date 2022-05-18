@@ -34,6 +34,12 @@ function secondThing(num, wordList) {
         const mainElement = "col-md-4 col-sm-6 px-2 mb-4 border-bottom";
         var elements = document.getElementsByClassName(mainElement);
         for (let i = 0; i < elements.length; i++) {
+            // if (visited) continue;
+            let answer = elements[i].hasAttribute("visited");
+            if (answer) continue;
+            const att = document.createAttribute("visited");
+            // att.value = True;
+            elements[i].setAttributeNode(att);
             var remove = false;
             titleElement = elements[i].getElementsByClassName('ellipsis ellipsis-2 product-title font-size-sm');
             cleanText = titleElement[0].innerHTML.replace(/<\/?[^>]+(>|$)/g, "");
@@ -49,7 +55,9 @@ function secondThing(num, wordList) {
             if(listChildren.length == 0) {
                 console.log('something')
             }
-            
+            // console.log(listChildren);
+            // listChildren[listChildren.length] = 'faggot';
+            // console.log(listChildren);
             let str = listChildren[1].innerHTML;
             let reg = /\d+/g;
             let result = str.match(reg);
@@ -59,6 +67,10 @@ function secondThing(num, wordList) {
             } else {
                 retailCost = parseFloat(result[0]);
             }
+            let adjustedRetail = (retailCost * 1.2305) + 2.14;
+            let rounded = adjustedRetail.toFixed(2);
+            listChildren[1].innerHTML += '<span style="color:red;">($' + String(rounded) + ')<span>';
+            // console.log(String(adjustedRetail))
             currBidElement = elements[i].getElementsByClassName('btn btn-primary btn-block btn-sm');
             str = currBidElement[0].innerHTML;
             let bidResult = str.match(reg);
