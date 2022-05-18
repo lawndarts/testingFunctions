@@ -34,11 +34,9 @@ function secondThing(num, wordList) {
         const mainElement = "col-md-4 col-sm-6 px-2 mb-4 border-bottom";
         var elements = document.getElementsByClassName(mainElement);
         for (let i = 0; i < elements.length; i++) {
-            // if (visited) continue;
             let answer = elements[i].hasAttribute("visited");
             if (answer) continue;
             const att = document.createAttribute("visited");
-            // att.value = True;
             elements[i].setAttributeNode(att);
             var remove = false;
             titleElement = elements[i].getElementsByClassName('ellipsis ellipsis-2 product-title font-size-sm');
@@ -47,7 +45,6 @@ function secondThing(num, wordList) {
             for (word of wordList) {
                 if (strippedWords.includes(word)){
                     console.log(word);
-                    // console.log(strippedWords);
                     remove = true;
                 }
               }
@@ -55,9 +52,6 @@ function secondThing(num, wordList) {
             if(listChildren.length == 0) {
                 console.log('something')
             }
-            // console.log(listChildren);
-            // listChildren[listChildren.length] = 'faggot';
-            // console.log(listChildren);
             let str = listChildren[1].innerHTML;
             let reg = /\d+/g;
             let result = str.match(reg);
@@ -67,14 +61,17 @@ function secondThing(num, wordList) {
             } else {
                 retailCost = parseFloat(result[0]);
             }
-            let adjustedRetail = (retailCost * 1.2305) + 2.14;
-            let rounded = adjustedRetail.toFixed(2);
-            listChildren[1].innerHTML += '<span style="color:red;">($' + String(rounded) + ')<span>';
-            // console.log(String(adjustedRetail))
+            // let adjustedRetail = (retailCost * 1.2305) + 2.14;
+            // let rounded = adjustedRetail.toFixed(2);
+            // listChildren[1].innerHTML += '<span style="color:red;">&nbsp;($' + String(rounded) + ')<span>';
             currBidElement = elements[i].getElementsByClassName('btn btn-primary btn-block btn-sm');
             str = currBidElement[0].innerHTML;
             let bidResult = str.match(reg);
             currBid = parseFloat(bidResult[0]);
+            let adjustedBid = (currBid * 1.2305) + 2.14;
+            let rounded = adjustedBid.toFixed(2);
+            currBidElement[0].innerHTML += 
+                "&nbsp;<span class='bg-light rounded'style='color:red; background-color:white;'>&nbsp;$" + String(rounded) + '&nbsp;<span>';
             value = currBid / retailCost
             if (value > percentage || remove) {
                 div = elements[i];
@@ -90,8 +87,6 @@ function secondThing(num, wordList) {
         };
     }, 1000);
 }
-
+ 
 words = ['baby', 'Baby', 'mirror', 'Mirror', 'Mirror,', 'mirror,']
 secondThing(20, words);
-
-//function to do something similar on a page for a finished auction
