@@ -50,7 +50,7 @@ function secondThing(num, wordList) {
               }
             listChildren = elements[i].getElementsByClassName('product-meta d-block font-size-xs pb-1');
             if(listChildren.length == 0) {
-                console.log('something')
+                continue;
             }
             let str = listChildren[1].innerHTML;
             let reg = /\d+/g;
