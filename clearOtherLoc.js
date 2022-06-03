@@ -24,7 +24,9 @@ intervalID = setInterval(function(){
 
 //New function removes all items where the percentage of the retail price made up by the current bid is less than
 //the percentage in the argument or if it contains one of the keywords
-function secondThing(num, wordList) {
+//adds real price
+//removes ended listings
+function snipeTool(num, wordList) {
     console.log(wordList)
     const percentage = num / 100;
     let count = 0;
@@ -42,15 +44,25 @@ function secondThing(num, wordList) {
             titleElement = elements[i].getElementsByClassName('ellipsis ellipsis-2 product-title font-size-sm');
             cleanText = titleElement[0].innerHTML.replace(/<\/?[^>]+(>|$)/g, "");
             let strippedWords = cleanText.split(" ");
-            //God damn. Tried writing python syntax in here
             for (word of wordList) {
                 if (strippedWords.includes(word)){
                     console.log(word);
                     remove = true;
                 }
               }
-            //Lets try to add something
-            
+            var t1 = elements[i].querySelector('.product-price');
+            var t2 = t1.querySelector('.font-size-xs');
+            const spl = t2.innerHTML.split(' ');
+            dateStr = spl[5]
+            dateStrs = dateStr.split(":")
+            var date = new Date();
+            date.setHours(parseInt(dateStrs[0]) + 12, parseInt(dateStrs[1]))
+            newDate = new Date()
+            if (newDate > date){
+                remove = true;
+                console.log('Removed ended listing')
+            }
+            //
             listChildren = elements[i].getElementsByClassName('product-meta d-block font-size-xs pb-1');
             if(listChildren.length == 0) {
                 continue;
@@ -64,9 +76,6 @@ function secondThing(num, wordList) {
             } else {
                 retailCost = parseFloat(result[0]);
             }
-            // let adjustedRetail = (retailCost * 1.2305) + 2.14;
-            // let rounded = adjustedRetail.toFixed(2);
-            // listChildren[1].innerHTML += '<span style="color:red;">&nbsp;($' + String(rounded) + ')<span>';
             currBidElement = elements[i].getElementsByClassName('btn btn-primary btn-block btn-sm');
             str = currBidElement[0].innerHTML;
             let bidResult = str.match(reg);
@@ -92,4 +101,4 @@ function secondThing(num, wordList) {
 }
  
 words = ['baby', 'Baby', 'mirror', 'Mirror', 'Mirror,', 'mirror,', 'Purifier','dog','Dog,','Dog']
-secondThing(20, words);
+snipeTool(20, words);
