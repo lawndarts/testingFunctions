@@ -41,13 +41,16 @@ function secondThing(num, wordList) {
             var remove = false;
             titleElement = elements[i].getElementsByClassName('ellipsis ellipsis-2 product-title font-size-sm');
             cleanText = titleElement[0].innerHTML.replace(/<\/?[^>]+(>|$)/g, "");
-            let strippedWords = cleanText.split(" ")
+            let strippedWords = cleanText.split(" ");
+            //God damn. Tried writing python syntax in here
             for (word of wordList) {
                 if (strippedWords.includes(word)){
                     console.log(word);
                     remove = true;
                 }
               }
+            //Lets try to add something
+            
             listChildren = elements[i].getElementsByClassName('product-meta d-block font-size-xs pb-1');
             if(listChildren.length == 0) {
                 continue;
@@ -88,5 +91,5 @@ function secondThing(num, wordList) {
     }, 1000);
 }
  
-words = ['baby', 'Baby', 'mirror', 'Mirror', 'Mirror,', 'mirror,']
+words = ['baby', 'Baby', 'mirror', 'Mirror', 'Mirror,', 'mirror,', 'Purifier','dog','Dog,','Dog']
 secondThing(20, words);
