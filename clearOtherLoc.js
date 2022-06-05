@@ -27,6 +27,20 @@ intervalID = setInterval(function(){
 //adds real price
 //removes ended listings
 function snipeTool(num, wordList) {
+    const months = {
+        Jan: '01',
+        Feb: '02',
+        Mar: '03',
+        Apr: '04',
+        May: '05',
+        Jun: '06',
+        Jul: '07',
+        Aug: '08',
+        Sep: '09',
+        Oct: '10',
+        Nov: '11',
+        Dec: '12',
+      };
     console.log(wordList)
     const percentage = num / 100;
     let count = 0;
@@ -53,14 +67,20 @@ function snipeTool(num, wordList) {
             var t1 = elements[i].querySelector('.product-price');
             var t2 = t1.querySelector('.font-size-xs');
             const spl = t2.innerHTML.split(' ');
-            dateStr = spl[5]
-            dateStrs = dateStr.split(":")
+            // console.log(spl);
+            day = spl[3];
+            month = spl[2];
+            dateStr = spl[5];
+            dateStrs = dateStr.split(":");
             var date = new Date();
-            date.setHours(parseInt(dateStrs[0]) + 12, parseInt(dateStrs[1]))
-            newDate = new Date()
+            date.setHours(parseInt(dateStrs[0]) + 12, parseInt(dateStrs[1]));
+            date.setDate(day);
+            date.setMonth(months[month]);
+            // console.log(date);
+            newDate = new Date();
             if (newDate > date){
                 remove = true;
-                console.log('Removed ended listing')
+                console.log('Removed ended listing');
             }
             //
             listChildren = elements[i].getElementsByClassName('product-meta d-block font-size-xs pb-1');
